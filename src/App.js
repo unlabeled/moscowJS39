@@ -5,22 +5,22 @@ import Logo from "./Logo"
 export default class App extends Component {
 
   state = { loading: false, result: undefined, temp: undefined }
-  
-  doEverything(city) {
-    const result = complicatedCalc(city)
-    this.setState({ result, loading: true })
-    myFetch(city)
-      .then(temp => this.setState({ loading: false, temp }))
-  }
 
   componentDidMount() {
-    this.doEverything(this.props.city)
+    const { city } = this.props
+    const result = complicatedCalc(city)
+    this.setState({ result, loading: true })
+    myFetch(city).then(temp => this.setState({ loading: false, temp }))
   }
   
   componentWillReceiveProps(nextProps) {
-    if (nextProps.city !== this.props.city) {
-      this.doEverything(this.props.city)
+    const { city } = this.props
+    if (nextProps.city === city) {
+      return undefined
     }
+    const result = complicatedCalc(city)
+    this.setState({ result, loading: true })
+    myFetch(city).then(temp => this.setState({ loading: false, temp }))
   }
 
   render() {
