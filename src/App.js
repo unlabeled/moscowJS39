@@ -14,7 +14,9 @@ export default class App extends Component {
     const { city } = this.props
     const result = complicatedCalc(city)
     this.setState({ result, loading: true })
-    myFetch(city).then(temp => this.setState({ loading: false, temp }))
+    myFetch(city).then(temp => this.setState(
+      (state, props) => props.city === city && { loading: false, temp })
+    )
   }
   
   render() {
