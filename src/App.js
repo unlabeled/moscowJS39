@@ -10,8 +10,11 @@ export default class App extends Component {
     temp: undefined
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
     const { city } = this.props
+    if (nextProps.city === city) {
+      return undefined
+    }  
     const result = complicatedCalc(city)
     this.setState({ result, loading: true })
     myFetch(city).then(temp => this.setState(
