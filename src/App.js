@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { complicatedCalc, request } from "./utils"
+import { complicatedCalc, functionResult, request } from "./utils"
 import Logo from "./Logo"
 
 export default class App extends Component {
@@ -9,7 +9,7 @@ export default class App extends Component {
   render() {
     const { city } = this.props
     const temp = request.call(this, city)
-    const result = complicatedCalc(city)
+    const result = functionResult.call(this, complicatedCalc, city)
     const hasTemp = temp !== undefined
     return (
       <div>

@@ -17,8 +17,14 @@ export function complicatedCalc(str) {
   return str ? str.length : 0
 }
 
+// Implement it
+export function functionResult(func, ...params) {
+  return func(params[0])
+}
+
 const loading = new Set()
 
+// Get cached requests
 export function request(city) {
 
   let { requestsCache } = this.state
