@@ -1,28 +1,20 @@
 import React, { Component } from "react"
-import { complicatedCalc, myFetch } from "./utils"
+import { complicatedCalc, request } from "./utils"
 import Logo from "./Logo"
 
 export default class App extends Component {
   
-  state = {
-    loading: false,
-    result: undefined,
-    temp: undefined
-  }
-  
+  state = {}  
+
   render() {
-    const { loading, temp } = this.state
-    const hasTemp = temp !== undefined
     const { city } = this.props
+    const temp = request.call(this, city)
     const result = complicatedCalc(city)
-    this.setState({ result, loading: true })
-    myFetch(city).then(temp => this.setState(
-      (state, props) => props.city === city && { loading: false, temp })
-    )
+    const hasTemp = temp !== undefined
     return (
       <div>
         <Logo />
-        {loading && (
+        {!hasTemp && (
           <div>...Loading</div>
         )}
         {hasTemp && (
